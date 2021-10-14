@@ -6,7 +6,7 @@ namespace RedisPubSub.Common.Extensions
 {
   public static  class StartupExtension
     {
-        public static void AddRedisService(this IServiceCollection services, IConfiguration configuration)
+        public static void RegisterMultiplexer(this IServiceCollection services, IConfiguration configuration)
         {
             var multiplexer = ConnectionMultiplexer.Connect(new ConfigurationOptions
             {
