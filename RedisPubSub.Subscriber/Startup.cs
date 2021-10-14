@@ -17,7 +17,7 @@ namespace RedisPubSub.Subscriber
         public IConfiguration Configuration { get; set; }
         public void ConfigureServices(IServiceCollection services)
         {
-            services.AddRedisService(Configuration);
+            services.RegisterMultiplexer(Configuration);
             services.AddHostedService<RedisSubscriberHostedService>();
         }
 

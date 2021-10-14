@@ -10,22 +10,25 @@ namespace RedisPubSub.Subscriber.HostedServices
 {
     public class RedisSubscriberHostedService : BackgroundService
     {
-        private readonly IConnectionMultiplexer _connectionMultiplexer;
         private readonly IMemoryCache _memoryCache;
-
+        private readonly ISubscriber _subscriber;
         public RedisSubscriberHostedService(IConnectionMultiplexer connectionMultiplexer, IMemoryCache memoryCache)
         {
-            _connectionMultiplexer = connectionMultiplexer;
             _memoryCache = memoryCache;
+            _subscriber = connectionMultiplexer.GetSubscriber();
         }
 
         protected override async Task ExecuteAsync(CancellationToken stoppingToken)
         {
-            var subscriber = _connectionMultiplexer.GetSubscriber();
-            await subscriber.SubscribeAsync(RedisChannelConstant.MemoryCache, (a, cacheKey) =>
+            await _subscriber.SubscribeAsync(RedisChannelConstant.MemoryCache, (a, cacheKey) =>
              {
                  _memoryCache.Remove(cacheKey);
              });
+        }
+        public override async Task StopAsync(CancellationToken cancellationToken)
+        {
+            await _subscriber.UnsubscribeAsync(RedisChannelConstant.MemoryCache);
+            await base.StopAsync(cancellationToken);
         }
     }
 }

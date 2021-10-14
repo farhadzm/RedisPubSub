@@ -24,7 +24,7 @@ namespace RedisPubSub.Publisher
         public IConfiguration Configuration { get; set; }
         public void ConfigureServices(IServiceCollection services)
         {
-            services.AddRedisService(Configuration);
+            services.RegisterMultiplexer(Configuration);
             services.AddSingleton<IRedisPublisher, RedisPublisher>();
             services.AddControllers();
         }
