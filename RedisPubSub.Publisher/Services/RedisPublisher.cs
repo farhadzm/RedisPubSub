@@ -1,4 +1,5 @@
 ﻿using RedisPubSub.Common.Constants;
+using RedisPubSub.Common.Models;
 using StackExchange.Redis;
 using System.Threading.Tasks;
 
@@ -18,7 +19,13 @@ namespace RedisPubSub.Publisher.Services
         }
         public async Task PublishMessage()
         {
-            await _databaseAsync.PublishAsync(RedisChannelConstant.MemoryCache, "keyForDelete");
+            var updatedData = new MemoryCacheDataDto
+            {
+                CacheKey = "user_information",
+                Data = 20
+            };
+            var redisChannelData = System.Text.Json.JsonSerializer.Serialize(updatedData);
+            await _databaseAsync.PublishAsync(RedisChannelConstant.MemoryCache, redisChannelData);
         }
     }
 }

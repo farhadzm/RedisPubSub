@@ -2,6 +2,7 @@
 using Microsoft.Extensions.Hosting;
 using Microsoft.Extensions.Logging;
 using RedisPubSub.Common.Constants;
+using RedisPubSub.Common.Models;
 using StackExchange.Redis;
 using System;
 using System.Threading;
@@ -23,10 +24,12 @@ namespace RedisPubSub.Subscriber.HostedServices
 
         protected override async Task ExecuteAsync(CancellationToken stoppingToken)
         {
-            await _subscriber.SubscribeAsync(RedisChannelConstant.MemoryCache, (a, cacheKey) =>
+            await _subscriber.SubscribeAsync(RedisChannelConstant.MemoryCache, (a, updatedData) =>
              {
-                 _memoryCache.Remove(cacheKey);
-                 _logger.LogInformation($"Cache deleted. Key:{cacheKey}");
+                 var data = System.Text.Json.JsonSerializer.Deserialize<MemoryCacheDataDto>(updatedData);
+                 _memoryCache.Remove(data.CacheKey);
+                 _memoryCache.Set(data.CacheKey, data.Data);
+                 _logger.LogInformation($"MemoryCache update. Key:{data.CacheKey}");
              });
         }
         public override async Task StopAsync(CancellationToken cancellationToken)
