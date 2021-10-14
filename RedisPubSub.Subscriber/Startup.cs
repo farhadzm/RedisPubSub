@@ -19,6 +19,7 @@ namespace RedisPubSub.Subscriber
         {
             services.RegisterMultiplexer(Configuration);
             services.AddHostedService<RedisSubscriberHostedService>();
+            services.AddMemoryCache();
         }
 
         public void Configure(IApplicationBuilder app, IWebHostEnvironment env)
