@@ -1,9 +1,9 @@
-﻿using RedisPubSub.Common.Constants;
-using RedisPubSub.Common.Models;
+﻿using RedisPubSub.Constants;
+using RedisPubSub.Models;
 using StackExchange.Redis;
 using System.Threading.Tasks;
 
-namespace RedisPubSub.Publisher.Services
+namespace RedisPubSub.Services
 {
     public interface IRedisPublisher
     {

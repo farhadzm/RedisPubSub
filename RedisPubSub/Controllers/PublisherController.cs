@@ -1,12 +1,12 @@
 ﻿using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
-using RedisPubSub.Publisher.Services;
+using RedisPubSub.Services;
 using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 
-namespace RedisPubSub.Publisher.Controllers
+namespace RedisPubSub.Controllers
 {
     [Route("api/[controller]")]
     [ApiController]

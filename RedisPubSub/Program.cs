@@ -7,7 +7,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 
-namespace RedisPubSub.Publisher
+namespace RedisPubSub
 {
     public class Program
     {
@@ -21,6 +21,7 @@ namespace RedisPubSub.Publisher
                 .ConfigureWebHostDefaults(webBuilder =>
                 {
                     webBuilder.UseStartup<Startup>();
+                    webBuilder.UseUrls(args);
                 });
     }
 }

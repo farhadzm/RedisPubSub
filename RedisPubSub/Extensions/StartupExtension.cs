@@ -1,10 +1,9 @@
 ﻿using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using StackExchange.Redis;
-
-namespace RedisPubSub.Common.Extensions
+namespace RedisPubSub.Extensions
 {
-  public static  class StartupExtension
+    public static class StartupExtension
     {
         public static void RegisterMultiplexer(this IServiceCollection services, IConfiguration configuration)
         {
