@@ -15,7 +15,6 @@ namespace RedisPubSub
         {
             Configuration = configuration;
         }
-
         public IConfiguration Configuration { get; set; }
         public void ConfigureServices(IServiceCollection services)
         {
@@ -25,7 +24,6 @@ namespace RedisPubSub
             services.AddMemoryCache();
             services.AddHostedService<RedisSubscriberHostedService>();
         }
-
         public void Configure(IApplicationBuilder app, IWebHostEnvironment env)
         {
             app.UseRouting();

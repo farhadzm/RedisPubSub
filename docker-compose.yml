@@ -1,0 +1,18 @@
+version: '3'
+services:
+  elasticsearch:
+    container_name: elasticsearch
+    image: elasticsearch:7.14.2
+    volumes:
+      - C:/Users/Farhad/Desktop/DockerComposes/DockerData/Elasticsearch:/usr/share/elasticsearch/data
+    environment:
+      - discovery.type=single-node
+    ports:
+      - 9200:9200
+      - 9300:9300
+
+  kibana:
+    container_name: kibana
+    image: kibana:7.14.2
+    ports:
+      - 5601:5601
